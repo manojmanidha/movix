@@ -15,9 +15,8 @@ import "./style.scss";
 
 const Carousel = ({data , loading}) => {
     const carouselConatainer = useRef();
-    const {url} = useSelector((state) => state.home);
+    const {URL} = useSelector((state) => state.home);
     const navigate = useNavigate();
-
     const navigation = (dir)=>{
 
     }
