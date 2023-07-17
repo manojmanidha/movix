@@ -12,8 +12,12 @@ import CircleRating from "../../../Components/circleRating/CircleRating";
 import Img from "../../../Components/lazyLoadImage/Img";
 import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "./PlayIcon";
+import VideoPopup from "../../../Components/videoPopUp/VideoPopUp";
 
 const DetailsBanner = ({ video, crew }) => {
+
+    const [show , setShow]= useState(false)
+    const [videoId , setVideoId]= useState(null)
 
     const {mediaType, id}= useParams();
     const {data , loading} = useFetch(`/${mediaType}/${id}`)
@@ -24,10 +28,10 @@ const DetailsBanner = ({ video, crew }) => {
 
     const director = crew?.filter((f)=> f.job==="Director");
 
-    // const writer = crew?.fliter((f)=> f.job === "Screenplay" || f.job === "Story" || f.job === "Writer" );
+    // const writer = crew?.fliter((f)=> { f.job === "Screenplay" || f.job === "Story" || f.job === "Writer" });
 
     const toHoursAndMinutes = (totalMinutes) => {
-        const hours = Math.floor(totalMinutes / 60);
+        const hours = Math?.floor(totalMinutes / 60);
         const minutes = totalMinutes % 60;
         return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
     };
@@ -42,28 +46,31 @@ const DetailsBanner = ({ video, crew }) => {
                 {!!data &&(
                     <React.Fragment>
                     <div className="backdrop-img">
-                        <Img src={URL.backdrop + data.backdrop_path}/>
+                        <Img src={URL.backdrop + data?.backdrop_path}/>
                     </div>
                     <div className="opacity-layer"></div>
                     <ContentWrapper>
                         <div className="content">
                             <div className="left">
-                                 {data.poster_path ? (
-                                    <Img className="posterImg" src={URL.backdrop + data.poster_path} />
+                                 {data?.poster_path ? (
+                                    <Img className="posterImg" src={URL.backdrop + data?.poster_path} />
                                  ): (<Img className="posterImg" src={PosterFallback} />)}
                             </div>
                            
                             <div className="right">
                                 <div className="title">
-                                    {`${data.name || data.title} (${dayjs(data.release_date).format("YYYY")})`}
+                                    {`${data?.name || data?.title} (${dayjs(data.release_date).format("YYYY")})`}
                                 </div>
                                 <div className="subtitle">
-                                    {data.tagline}
+                                    {data?.tagline}
                                 </div>
                                 <Genres data={_genres}/>
                                 <div className="row">
                                     <CircleRating rating={data.vote_average.toFixed(1)}/>
-                                    <div className="playbtn" onClick={()=>{}}>
+                                    <div className="playbtn" onClick={()=>{
+                                        setShow(true)
+                                        setVideoId(video?.key)
+                                    }}>
                                     <PlayIcon/>
                                     <span className="text">Watch Trailer</span>
                                      </div>
@@ -73,18 +80,18 @@ const DetailsBanner = ({ video, crew }) => {
                                     Overview
                                 </div>
                                 <div className="description">
-                                    {data.overview}
+                                    {data?.overview}
                                 </div>
                                 </div>
 
                                 <div className="info">
-                                    {data.status && (
+                                    {data?.status && (
                                         <div className="infoItem">
                                             <span className="text bold">
                                                 status:{" "}
                                             </span>
                                             <span className="text">
-                                                {data.status}
+                                                {data?.status}
                                             </span>
                                         </div>
                                     )}
@@ -177,6 +184,12 @@ const DetailsBanner = ({ video, crew }) => {
                                 }
                             </div>
                         </div>
+                        <VideoPopup
+                        show={show}
+                        setShow={setShow}
+                        videoId={videoId}
+                        setVideoId={setVideoId}
+                        />
                     </ContentWrapper>
                     </React.Fragment>
                 )}
