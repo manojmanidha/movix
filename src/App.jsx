@@ -9,7 +9,7 @@ import Footer from "./Components/Footer/Fotter";
 import Home from "./Pages/Home/Home";
 import Details from "./Pages/details/Details";
 import SearchResult from "./Pages/Searchresult/Searchresult";
-import Explore from "./Pages/explore/Explore";
+import Explore from "./Pages/Explore/Explore";
 import PageNotFound from "./Pages/404/PageNotFound";
 
 function App() {
