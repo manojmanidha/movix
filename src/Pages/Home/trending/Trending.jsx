@@ -5,7 +5,7 @@ import './style.scss';
 import ContentWrapper from '../../../Components/contentWrapper/ContentWrapper';
 import SwitchTabs from '../../../Components/switchTabs/SwitchTabs';
 import useFetch from '../../../hooks/useFetch';
-import Carousel from '../../../components/carousel/Carousel';
+import Carousel from '../../../Components/carousel/Carousel';
 
 
 const Trending = () => {
